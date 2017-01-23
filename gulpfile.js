@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
-    livereload = require('gulp-livereload');
+    livereload = require('gulp-livereload'),
+    sass = require('gulp-sass');
 
 gulp.task('html', function () {
     gulp.src('src/**/*.html')
@@ -7,9 +8,10 @@ gulp.task('html', function () {
         .pipe(livereload());
 });
 
-gulp.task('css', function () {
-    gulp.src('src/css/**/*.css')
-        .pipe(gulp.dest('dist/'))
+gulp.task('sass', function () {
+    gulp.src('src/sass/*.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('dist/css'))
         .pipe(livereload());
 });
 
@@ -26,9 +28,9 @@ gulp.task('js-project', function () {
         .pipe(livereload());
 });
 
-gulp.task('default', ['jslib', 'js-project', 'html', 'css'], function () {
+gulp.task('default', ['jslib', 'js-project', 'html', 'sass'], function () {
     livereload.listen();
     gulp.watch('**/*.html', {cwd: './src'}, ['html']);
-    gulp.watch('css/**/*.css', {cwd: './src'}, ['css']);
+    gulp.watch('sass/**/*.scss', {cwd: './src'}, ['sass']);
     gulp.watch('js/**/*.js', {cwd: './src'}, ['js-project']);
 });
