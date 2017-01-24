@@ -12,15 +12,42 @@ var eeGrid = (function () {
         this.data = [];
         this.colDef = colDef;
         this.gridElement = document.getElementById(elementId);
+        this.thElements = this.gridElement.getElementsByTagName('th');
+        this.sortMap = {
+            'none': 'desc',
+            'desc': 'asc',
+            'asc': 'none'
+        };
         return this;
+    };
+
+
+    Grid.prototype.sortCol = function (colIndex, dataFn) {
+        var sortDir = this.colDef[colIndex].sortDir = this.sortMap[this.colDef[colIndex].sortDir || 'none'];
+        var thElement = this.thElements[colIndex] || {};
+        thElement._className = thElement._className || thElement.className;
+        thElement.className = thElement._className + ' ' + sortDir;
+        dataFn = dataFn || eeUtil.noop;
+
+        this._sort = {
+            sortDir: sortDir,
+            dataFn: dataFn
+        };
+
+        sortGrid(this);
+        this.update();
     };
 
     Grid.prototype.update = function (data) {
         var _self = this;
-        _self.data = data.concat([]);
+        if (data) {
+            _self.data = data.concat([]);
+            _self._data = _self.data.concat([]);
+        }
+        sortGrid(_self);
         var body = document.createElement('TBODY');
 
-        data.forEach(function (item) {
+        this.data.forEach(function (item) {
             var row = document.createElement('TR');
             _self.colDef.forEach(function (col) {
                 var td = document.createElement('TD');
@@ -32,7 +59,7 @@ var eeGrid = (function () {
                     td.innerHTML = content + '';
                 }
                 // if (style){
-                    td.className = style;
+                td.className = style;
                 // }
                 row.appendChild(td);
             });
@@ -42,6 +69,26 @@ var eeGrid = (function () {
         this.gridElement.replaceChild(body, this.gridElement.tBodies[0]);
         return this;
     };
+
+    function sortGrid(grid) {
+        if (!grid._sort) {
+            return;
+        }
+
+        var cfg = grid._sort;
+
+        if (cfg.sortDir === 'none') {
+            grid.data = grid._data.concat([]);
+        } else if (cfg.sortDir === 'asc') {
+            grid.data.sort(function (a, b) {
+                return cfg.dataFn(a) < cfg.dataFn(b) ? 1 : -1;
+            });
+        } else {
+            grid.data.sort(function (a, b) {
+                return cfg.dataFn(a) > cfg.dataFn(b) ? 1 : -1;
+            });
+        }
+    }
 
     return methods;
 }());
