@@ -57,7 +57,7 @@
             document.getElementById('person-add').addEventListener('click', function(){
                 personsData.push(addPersonForm.collect());
                 addPersonModal.close();
-                personsGrid.update(personsData);
+                updateDashboard();
             });
             document.getElementById('person-add-cancel').addEventListener('click', function(){
                addPersonModal.close();
