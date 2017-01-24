@@ -1,6 +1,8 @@
-var eeUtil = (function (eeUtil) {
+var eeUtil = (function (eeUtil) { //todo take apart
 
+    eeUtil.getHTML = getHTML;
     eeUtil.getJson = getJson;
+    eeUtil.toggleClass = toggleClass;
     eeUtil.noop = noop;
 
     function getJson(url, successCallback, errorCallback) {
@@ -13,6 +15,10 @@ var eeUtil = (function (eeUtil) {
             }
             successCallback(data);
         }, errorCallback);
+    }
+
+    function getHTML(url, successCallback, errorCallback) {
+        HttpRequest(url, 'GET', successCallback, errorCallback);
     }
 
     function HttpRequest(url, method, successCallback, errorCallback, data) {
@@ -28,6 +34,10 @@ var eeUtil = (function (eeUtil) {
         };
         httpRequest.open(method || 'GET', url);
         httpRequest.send(data);
+    }
+
+    function toggleClass(element, className, add) { //todo fix leaves empty class attr
+        element.className = element.className.split(new RegExp(' ?' + className)).join('') + (add ? ' ' + className : '');
     }
 
     function noop(a) {

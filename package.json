@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/buribalazs/eu-edge-solution#readme",
   "dependencies": {
-    "d3": "^4.4.4"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

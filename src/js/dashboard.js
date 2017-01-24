@@ -1,4 +1,4 @@
-(function (eeUtil, eeGrid, eeModal) {
+(function (eeUtil, eeGrid, eeModal, eeTemplate, eeForms) {
     var personsData = [];
     var personsGrid = eeGrid.init('table-persons',
         [
@@ -41,7 +41,7 @@
         personsData = response;
         updateDashboard();
         document.getElementById('th-persons-sort').addEventListener('click', function (e) {
-            personsGrid.sortCol(0, function(d){
+            personsGrid.sortCol(0, function (d) {
                 return d.name + ' ' + (d.job || '');
             });
         });
@@ -49,19 +49,30 @@
         console.error(e);
     });
 
-    function deletePerson(d){
-        personsData = personsData.filter(function(item){
+    document.getElementById('btn-add').addEventListener('click', function(){
+    // setTimeout(function () {
+        eeTemplate.get('tpl/person-form.html', function (d) {
+            var addPersonModal = eeModal.open(d);
+            var addPersonForm = eeForms.addPerson();
+            document.getElementById('person-add').addEventListener('click', function(){
+                personsData.push(addPersonForm.collect());
+                addPersonModal.close();
+                personsGrid.update(personsData);
+            });
+            document.getElementById('person-add-cancel').addEventListener('click', function(){
+               addPersonModal.close();
+            });
+        });
+    });
+
+    function deletePerson(d) {
+        personsData = personsData.filter(function (item) {
             return item !== d;
         });
         updateDashboard();
     }
 
-    document.getElementById('btn-add').addEventListener('click', function(){
-        //todo
-        eeModal.init();
-    });
-
-    function updateDashboard(){
+    function updateDashboard() {
         personsGrid.update(personsData);
         updateDataDump(personsData);
     }
@@ -72,4 +83,4 @@
     function updateDataDump(d) {
         dataDumpElement.value = JSON.stringify(d, null, 4);
     }
-}(eeUtil, eeGrid, eeModal));
+}(eeUtil, eeGrid, eeModal, eeTemplate, eeForms));

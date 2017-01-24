@@ -1,5 +1,10 @@
 @import '_ee-grid.scss';
 @import '_ee-modal.scss';
+@import '_ee-form.scss';
+
+body * {
+  box-sizing: border-box;
+}
 
 html {
   font-family: sans-serif;
@@ -19,7 +24,7 @@ table {
 }
 
 button {
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 a {
