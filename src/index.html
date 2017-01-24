@@ -5,6 +5,7 @@
     <title>EU Edge Test</title>
     <link rel="stylesheet" href="css/style.css"/>
     <script type="text/javascript" src="js/d3.min.js"></script>
+    <script type="text/javascript" src="js/ee-util.js"></script>
 </head>
 <body>
 <div class="row">
@@ -13,11 +14,13 @@
 <div class="row">
     <table id="table-persons">
         <thead>
-        <th>Name (job title)</th>
-        <th>Age</th>
-        <th>Nickname</th>
-        <th>Employee</th>
-        <th></th>
+        <tr>
+            <th>Name (job title)</th>
+            <th>Age</th>
+            <th>Nickname</th>
+            <th>Employee</th>
+            <th></th>
+        </tr>
         </thead>
         <tbody>
         <tr>
@@ -32,8 +35,14 @@
 </div>
 <div class="row">
     <label for="ta-data-dump">Data dump</label>
-    <textarea id="ta-data-dump">asd
-    </textarea>
+    <textarea id="ta-data-dump"></textarea>
 </div>
 </body>
+<script>
+    eeUtil.getJson('asset/persons.json', function (data) {
+        console.log(data);
+    }, function (e) {
+        console.log(e);
+    })
+</script>
 </html>
