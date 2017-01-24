@@ -1,4 +1,4 @@
-var eeGrid = (function () {
+var eeGrid = (function (eeUtil) {
 
     var methods = {
         init: init
@@ -91,4 +91,4 @@ var eeGrid = (function () {
     }
 
     return methods;
-}());
+}(eeUtil));

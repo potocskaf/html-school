@@ -1,4 +1,4 @@
-(function () {
+(function (eeUtil, eeGrid, eeModal) {
     var personsData = [];
     var personsGrid = eeGrid.init('table-persons',
         [
@@ -56,6 +56,11 @@
         updateDashboard();
     }
 
+    document.getElementById('btn-add').addEventListener('click', function(){
+        //todo
+        eeModal.init();
+    });
+
     function updateDashboard(){
         personsGrid.update(personsData);
         updateDataDump(personsData);
@@ -67,4 +72,4 @@
     function updateDataDump(d) {
         dataDumpElement.value = JSON.stringify(d, null, 4);
     }
-}());
+}(eeUtil, eeGrid, eeModal));
