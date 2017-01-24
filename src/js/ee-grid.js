@@ -24,12 +24,16 @@ var eeGrid = (function () {
             var row = document.createElement('TR');
             _self.colDef.forEach(function (col) {
                 var td = document.createElement('TD');
-                var content = (typeof col === 'function' ? col(item) : item[col]);
+                var key = col.key, style = col.style || '';
+                var content = (typeof key === 'function' ? key(item) : item[key]);
                 if (typeof content === 'object') {
                     td.appendChild(content);
                 } else {
                     td.innerHTML = content + '';
                 }
+                // if (style){
+                    td.className = style;
+                // }
                 row.appendChild(td);
             });
             body.appendChild(row);
