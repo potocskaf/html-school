@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="css/style.css"/>
     <script type="text/javascript" src="js/d3.min.js"></script>
     <script type="text/javascript" src="js/ee-util.js"></script>
+    <script type="text/javascript" src="js/ee-grid.js"></script>
 </head>
 <body>
 <div class="row">
@@ -23,13 +24,6 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>asd</td>
-            <td>asd</td>
-            <td>asd</td>
-            <td>asd</td>
-            <td><a href="#">Delete</a></td>
-        </tr>
         </tbody>
     </table>
 </div>
@@ -38,11 +32,5 @@
     <textarea id="ta-data-dump"></textarea>
 </div>
 </body>
-<script>
-    eeUtil.getJson('asset/persons.json', function (data) {
-        console.log(data);
-    }, function (e) {
-        console.log(e);
-    })
-</script>
+<script type="text/javascript" src="js/dashboard.js"></script>
 </html>
