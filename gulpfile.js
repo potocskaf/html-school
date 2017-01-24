@@ -21,20 +21,13 @@ gulp.task('sass', function () {
         .pipe(livereload());
 });
 
-gulp.task('js-dependencies', function () {
-    var libs = [
-        'node_modules/d3/build/d3.min.js'
-    ];
-    gulp.src(libs).pipe(gulp.dest('dist/js/'));
-});
-
 gulp.task('js-project', function () {
     gulp.src('src/js/**/*.js')
         .pipe(gulp.dest('dist/js/'))
         .pipe(livereload());
 });
 
-gulp.task('default', ['js-dependencies', 'js-project', 'html', 'asset', 'sass'], function () {
+gulp.task('default', ['js-project', 'html', 'asset', 'sass'], function () {
     livereload.listen();
     gulp.watch('**/*.html', {cwd: './src'}, ['html']);
     gulp.watch('sass/**/*.scss', {cwd: './src'}, ['sass']);
