@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+    pug = require('gulp-pug'),
     livereload = require('gulp-livereload'),
     sass = require('gulp-sass');
 
@@ -8,11 +9,12 @@ gulp.task('html', function () {
         .pipe(livereload());
 });
 
-// gulp.task('asset', function () {
-//     gulp.src('src/asset/**/*.*')
-//         .pipe(gulp.dest('dist/asset'))
-//         .pipe(livereload());
-// });
+gulp.task('views', function buildHTML() {
+    return gulp.src('views/*.pug')
+        .pipe(pug({
+            // Your options in here.
+        }));
+});
 
 gulp.task('sass', function () {
     gulp.src('src/sass/*.scss')
