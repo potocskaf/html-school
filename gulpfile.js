@@ -8,11 +8,11 @@ gulp.task('html', function () {
         .pipe(livereload());
 });
 
-gulp.task('asset', function () {
-    gulp.src('src/asset/**/*.*')
-        .pipe(gulp.dest('dist/asset'))
-        .pipe(livereload());
-});
+// gulp.task('asset', function () {
+//     gulp.src('src/asset/**/*.*')
+//         .pipe(gulp.dest('dist/asset'))
+//         .pipe(livereload());
+// });
 
 gulp.task('sass', function () {
     gulp.src('src/sass/*.scss')
@@ -27,7 +27,7 @@ gulp.task('js-project', function () {
         .pipe(livereload());
 });
 
-gulp.task('default', ['js-project', 'html', 'asset', 'sass'], function () {
+gulp.task('default', ['js-project', 'html', 'sass'], function () {
     livereload.listen();
     gulp.watch('**/*.html', {cwd: './src'}, ['html']);
     gulp.watch('sass/**/*.scss', {cwd: './src'}, ['sass']);

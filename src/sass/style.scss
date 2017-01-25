@@ -1,6 +1,4 @@
-@import '_ee-grid.scss';
-@import '_ee-modal.scss';
-@import '_ee-form.scss';
+@import '_variables';
 
 body * {
   box-sizing: border-box;
@@ -8,7 +6,7 @@ body * {
 
 html {
   font-family: sans-serif;
-  font-size: 100%;
+  font-size: $page-font-size;
 }
 
 table {
